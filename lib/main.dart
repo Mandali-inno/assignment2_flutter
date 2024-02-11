@@ -1,42 +1,112 @@
 import 'package:flutter/material.dart';
+import 'package:helloworld/calculator.dart';
+import 'package:helloworld/home_page.dart';
+import 'package:helloworld/profile_page.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
-      theme: ThemeData(
-        // useMaterial3: true,
-        primarySwatch: Colors.blue,
-      ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      debugShowCheckedModeBanner: false,
+      home: const RootPage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});  
+class RootPage extends StatefulWidget {
+  const RootPage({super.key});
+  _RootPageState createState() => _RootPageState();
+}
+
+class _RootPageState extends State<RootPage> {
+  int currentPage = 0;
+  List<Widget> pages = [
+    const HomePage(),
+    CalculatorPage(),
+    const ProfilePage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.deepPurple[50],
       appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
-      ),
-      body: Center(
-        child: Text(
-          'Hello, World!',
+        title: const Text(
+          'Flutter',
         ),
+      ),
+      drawer: Drawer(
+        backgroundColor: Colors.deepPurple[100],
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: const Text('Mandali'),
+              accountEmail: const Text('mandaliinno@gmail.com'),
+              currentAccountPicture: CircleAvatar(
+                  child: ClipOval(
+                child: Image.asset('images/image1.jpg'),
+              )),
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                image: AssetImage('images/image1.jpg'),
+                fit: BoxFit.cover,
+              )),
+            ),
+            ListTile(
+              title: const Text('Home'),
+              leading: const Icon(Icons.home, color: Colors.deepPurple),
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const HomePage()));
+              },
+            ),
+            const ListTile(
+              title: Text('Calculator'),
+              leading: Icon(Icons.calculate, color: Colors.deepPurple),
+            ),
+            ListTile(
+              title: const Text('Contacts'),
+              leading:
+                  const Icon(Icons.person_2_sharp, color: Colors.deepPurple),
+              // onTap: () {
+              //   Navigator.of(context).push(MaterialPageRoute(
+              //       builder: (context) => const ProfilePage()));
+              // },
+            ),
+          ],
+        ),
+      ),
+      body: pages[currentPage],
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     debugPrint('Floating action pressed');
+      //   },
+      //   child: const Icon(Icons.add),
+      // ),
+      bottomNavigationBar: NavigationBar(
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.home, color: Colors.deepPurple),
+            label: 'Home',
+          ),
+          NavigationDestination(
+              icon: Icon(Icons.calculate, color: Colors.deepPurple),
+              label: 'Calculator'),
+          NavigationDestination(
+              icon: Icon(Icons.person, color: Colors.deepPurple),
+              label: 'Contacts'),
+        ],
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPage = index;
+          });
+        },
+        selectedIndex: currentPage,
       ),
     );
   }

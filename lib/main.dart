@@ -24,6 +24,7 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   int currentPage = 0;
+  int selectedDrawerIndex = 0;
   List<Widget> pages = [
     const HomePage(),
     CalculatorPage(),
@@ -57,27 +58,30 @@ class _RootPageState extends State<RootPage> {
                 fit: BoxFit.cover,
               )),
             ),
-            ListTile(
-              title: const Text('Home'),
-              leading: const Icon(Icons.home, color: Colors.deepPurple),
-              onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const HomePage()));
-              },
-            ),
-            const ListTile(
-              title: Text('Calculator'),
-              leading: Icon(Icons.calculate, color: Colors.deepPurple),
-            ),
-            ListTile(
-              title: const Text('Contacts'),
-              leading:
-                  const Icon(Icons.person_2_sharp, color: Colors.deepPurple),
-              // onTap: () {
-              //   Navigator.of(context).push(MaterialPageRoute(
-              //       builder: (context) => const ProfilePage()));
-              // },
-            ),
+            // ListTile(
+            //   title: const Text('Home'),
+            //   leading: const Icon(Icons.home, color: Colors.deepPurple),
+            //   onTap: () {
+            //     Navigator.of(context).push(
+            //         MaterialPageRoute(builder: (context) => const HomePage()));
+            //   },
+            // ),
+            // const ListTile(
+            //   title: Text('Calculator'),
+            //   leading: Icon(Icons.calculate, color: Colors.deepPurple),
+            // ),
+            // ListTile(
+            //   title: const Text('Contacts'),
+            //   leading:
+            //       const Icon(Icons.person_2_sharp, color: Colors.deepPurple),
+            //   // onTap: () {
+            //   //   Navigator.of(context).push(MaterialPageRoute(
+            //   //       builder: (context) => const ProfilePage()));
+            //   // },
+            // ),
+            buildDrawerItem(0, 'Home', Icons.home),
+            buildDrawerItem(1, 'Calculator', Icons.calculate),
+            buildDrawerItem(2, 'Contacts', Icons.person),
           ],
         ),
       ),
@@ -108,6 +112,22 @@ class _RootPageState extends State<RootPage> {
         },
         selectedIndex: currentPage,
       ),
+    );
+  }
+
+  ListTile buildDrawerItem(int index, String title, IconData icon) {
+    return ListTile(
+      title: Text(title),
+      leading: Icon(icon),
+      onTap: () {
+        // Navigate to the corresponding page and update the selected index
+        Navigator.pop(context); // Close the drawer
+        setState(() {
+          currentPage = index;
+          selectedDrawerIndex = index;
+        });
+      },
+      selected: selectedDrawerIndex == index, // Highlight the selected item
     );
   }
 }

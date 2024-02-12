@@ -10,7 +10,7 @@ class ProfilePage extends StatelessWidget {
         itemCount: itemCount,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
-            title: Text('Item ${(index + 1)}'),
+            title: Text('Contact ${(index + 1)}'),
             leading: const Icon(Icons.person),
             trailing: const Icon(Icons.select_all),
             onTap: () {

@@ -11,7 +11,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
   var userQuestion = '';
   var userAnser = '';
 
-  final myTextStyle = TextStyle(fontSize: 10, color: Colors.deepPurple[900]);
+  final myTextStyle = TextStyle(fontSize: 10, color: Colors.blue[900]);
 
   final List<String> buttons = [
     'C',
@@ -39,7 +39,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple[50],
+      backgroundColor: Colors.blue[50],
       body: Column(children: <Widget>[
         Expanded(
           child: Container(
@@ -114,7 +114,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                           // }
                         },
                         buttonText: buttons[index],
-                        color: Colors.deepPurple,
+                        color: Colors.blue,
                         textColor: Colors.white,
                       );
                     } else
@@ -127,11 +127,11 @@ class _CalculatorPageState extends State<CalculatorPage> {
                         },
                         buttonText: buttons[index],
                         color: isOperator(buttons[index])
-                            ? Colors.deepPurple
-                            : Colors.deepPurple[100],
+                            ? Colors.blue
+                            : Colors.blue[100],
                         textColor: isOperator(buttons[index])
                             ? Colors.white
-                            : Colors.deepPurple,
+                            : Colors.blue,
                       );
                   }),
             ),

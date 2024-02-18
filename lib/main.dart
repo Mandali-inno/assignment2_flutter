@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:helloworld/calculator.dart';
 import 'package:helloworld/home_page.dart';
 import 'package:helloworld/profile_page.dart';
+import 'package:helloworld/settings.dart';
+import 'package:helloworld/page/sign_in.dart';
 
 void main() => runApp(const MyApp());
 
@@ -10,12 +12,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      theme: ThemeData(primarySwatch: Colors.blue),
       debugShowCheckedModeBanner: false,
       home: const RootPage(),
     );
   }
 }
+
+int currentPage = 0;
+int selectedDrawerIndex = 0;
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});
@@ -23,25 +28,25 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-  int currentPage = 0;
-  int selectedDrawerIndex = 0;
   List<Widget> pages = [
     const HomePage(),
     CalculatorPage(),
     const ProfilePage(),
+    Setting(),
+    LoginPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple[50],
+      backgroundColor: Colors.blue[50],
       appBar: AppBar(
         title: const Text(
           'Flutter',
         ),
       ),
       drawer: Drawer(
-        backgroundColor: Colors.deepPurple[100],
+        backgroundColor: Colors.blue[100],
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -60,7 +65,7 @@ class _RootPageState extends State<RootPage> {
             ),
             // ListTile(
             //   title: const Text('Home'),
-            //   leading: const Icon(Icons.home, color: Colors.deepPurple),
+            //   leading: const Icon(Icons.home, color: Colors.blue),
             //   onTap: () {
             //     Navigator.of(context).push(
             //         MaterialPageRoute(builder: (context) => const HomePage()));
@@ -68,12 +73,12 @@ class _RootPageState extends State<RootPage> {
             // ),
             // const ListTile(
             //   title: Text('Calculator'),
-            //   leading: Icon(Icons.calculate, color: Colors.deepPurple),
+            //   leading: Icon(Icons.calculate, color: Colors.blue),
             // ),
             // ListTile(
             //   title: const Text('Contacts'),
             //   leading:
-            //       const Icon(Icons.person_2_sharp, color: Colors.deepPurple),
+            //       const Icon(Icons.person_2_sharp, color: Colors.blue),
             //   // onTap: () {
             //   //   Navigator.of(context).push(MaterialPageRoute(
             //   //       builder: (context) => const ProfilePage()));
@@ -82,6 +87,27 @@ class _RootPageState extends State<RootPage> {
             buildDrawerItem(0, 'Home', Icons.home),
             buildDrawerItem(1, 'Calculator', Icons.calculate),
             buildDrawerItem(2, 'Contacts', Icons.person),
+            ListTile(
+              title: const Text('Settings'),
+              leading: const Icon(Icons.settings),
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Setting()));
+              },
+            ),
+            const SizedBox(height: 40),
+            const Divider(
+              color: Colors.black,
+              thickness: 2,
+            ),
+            ListTile(
+              title: const Text('Logout'),
+              leading: const Icon(Icons.logout),
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => LoginPage()));
+              },
+            ),
           ],
         ),
       ),
@@ -95,15 +121,14 @@ class _RootPageState extends State<RootPage> {
       bottomNavigationBar: NavigationBar(
         destinations: const [
           NavigationDestination(
-            icon: Icon(Icons.home, color: Colors.deepPurple),
+            icon: Icon(Icons.home, color: Colors.blue),
             label: 'Home',
           ),
           NavigationDestination(
-              icon: Icon(Icons.calculate, color: Colors.deepPurple),
+              icon: Icon(Icons.calculate, color: Colors.blue),
               label: 'Calculator'),
           NavigationDestination(
-              icon: Icon(Icons.person, color: Colors.deepPurple),
-              label: 'Contacts'),
+              icon: Icon(Icons.person, color: Colors.blue), label: 'Contacts'),
         ],
         onDestinationSelected: (int index) {
           setState(() {

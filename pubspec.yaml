@@ -10,6 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
   math_expressions: ^2.0.0
+  google_sign_in: ^5.0.3
+  font_awesome_flutter: ^9.0.0
+  cupertino_icons: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -20,6 +23,7 @@ flutter:
   uses-material-design: true
   assets:
    - images/image1.jpg
+   - images/image2.png
   #  - images/a_dot_ham.jpeg
   # fonts:
   #   - family: Schyler
